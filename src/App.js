@@ -1,50 +1,19 @@
 import React, { useReducer } from "react";
 import "./App.css";
-
-const INCREMENT_COUNTER = "INCREMENT_COUNTER";
-const DECREMENT_COUNTER = "DECREMENT_COUNTER";
-
-const INCREMENT_BY_N = "INCREMENT_BY_N";
-const DECREMENT_BY_N = "DECREMENT_BY_N";
-
-const UPDATE_N = "UPDATE_N";
-
-const ALLOW_INCREMENT_BY_N = "ALLOW_INCREMENT_BY_N";
-
-function incrementCounter() {
-  return {
-    type: INCREMENT_COUNTER
-  };
-}
-function decrementCounter() {
-  return {
-    type: DECREMENT_COUNTER
-  };
-}
-
-function incrementByN() {
-  return {
-    type: INCREMENT_BY_N
-  };
-}
-function decrementByN() {
-  return {
-    type: DECREMENT_BY_N
-  };
-}
-
-function updateN(n) {
-  return {
-    type: UPDATE_N,
-    n: n
-  };
-}
-
-function allowIncrementByN() {
-  return {
-    type: ALLOW_INCREMENT_BY_N
-  };
-}
+import {
+  INCREMENT_COUNTER,
+  DECREMENT_COUNTER,
+  UPDATE_N,
+  INCREMENT_BY_N,
+  DECREMENT_BY_N,
+  ALLOW_INCREMENT_BY_N,
+  incrementCounter,
+  decrementCounter,
+  updateN,
+  incrementByN,
+  decrementByN,
+  allowIncrementByN
+} from "./actions";
 
 const reducer = (state, action) => {
   switch (action.type) {
