@@ -9,6 +9,8 @@ const DECREMENT_BY_N = "DECREMENT_BY_N";
 
 const UPDATE_N = "UPDATE_N";
 
+const ALLOW_INCREMENT_BY_N = "ALLOW_INCREMENT_BY_N";
+
 function incrementCounter() {
   return {
     type: INCREMENT_COUNTER
@@ -38,6 +40,12 @@ function updateN(n) {
   };
 }
 
+function allowIncrementByN() {
+  return {
+    type: ALLOW_INCREMENT_BY_N
+  };
+}
+
 const reducer = (state, action) => {
   switch (action.type) {
     case INCREMENT_COUNTER:
@@ -50,6 +58,8 @@ const reducer = (state, action) => {
       return { ...state, counter: state.counter + state.n };
     case DECREMENT_BY_N:
       return { ...state, counter: state.counter - state.n };
+    case ALLOW_INCREMENT_BY_N:
+      return { ...state, allowed: !state.allowed };
     default:
       return state;
   }
@@ -57,7 +67,8 @@ const reducer = (state, action) => {
 
 const initialState = {
   counter: 0,
-  n: 0
+  n: 0,
+  allowed: true
 };
 
 function App() {
@@ -84,13 +95,22 @@ function App() {
             onChange={event => dispatch(updateN(Number(event.target.value)))}
           />
           <br />
-          <button onClick={() => dispatch(incrementByN())}>
+          <button
+            onClick={() => dispatch(incrementByN())}
+            disabled={!state.allowed}
+          >
             Increment By N
           </button>
-          <button onClick={() => dispatch(decrementByN())}>
+          <button
+            onClick={() => dispatch(decrementByN())}
+            disabled={!state.allowed}
+          >
             Decrement By N
           </button>
         </div>
+        <button onClick={() => dispatch(allowIncrementByN())}>
+          {state.allowed ? "Disable In/Decrement" : "Enable In/Decrement"}
+        </button>
       </header>
     </div>
   );
