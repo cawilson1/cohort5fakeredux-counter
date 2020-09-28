@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React from "react";
 import "./App.css";
 import {
   incrementCounter,
@@ -9,27 +9,21 @@ import {
   allowIncrementByN
 } from "./actions";
 import { reducer } from "./reducers";
-
-const initialState = {
-  counter: 0,
-  n: 0,
-  allowed: true
-};
+import { CreateStore } from "./store";
 
 function App() {
-  // const [count, setCount] = useState(0);
-  const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
+  const store = CreateStore(reducer);
+  console.log(store.getState());
   return (
     <div className="App">
       <header className="App-header">
-        <div>{state.counter}</div>
+        <div>{store.getState().counter}</div>
         <div>
           <div>
-            <button onClick={() => dispatch(incrementCounter())}>
+            <button onClick={() => store.dispatch(incrementCounter())}>
               Increment
             </button>
-            <button onClick={() => dispatch(decrementCounter())}>
+            <button onClick={() => store.dispatch(decrementCounter())}>
               Decrement
             </button>
           </div>
@@ -37,24 +31,28 @@ function App() {
         <div>
           <label>Number to increment By</label>
           <input
-            onChange={event => dispatch(updateN(Number(event.target.value)))}
+            onChange={event =>
+              store.dispatch(updateN(Number(event.target.value)))
+            }
           />
           <br />
           <button
-            onClick={() => dispatch(incrementByN())}
-            disabled={!state.allowed}
+            onClick={() => store.dispatch(incrementByN())}
+            disabled={!store.getState().allowed}
           >
             Increment By N
           </button>
           <button
-            onClick={() => dispatch(decrementByN())}
-            disabled={!state.allowed}
+            onClick={() => store.dispatch(decrementByN())}
+            disabled={!store.getState().allowed}
           >
             Decrement By N
           </button>
         </div>
-        <button onClick={() => dispatch(allowIncrementByN())}>
-          {state.allowed ? "Disable In/Decrement" : "Enable In/Decrement"}
+        <button onClick={() => store.dispatch(allowIncrementByN())}>
+          {store.getState().allowed
+            ? "Disable In/Decrement"
+            : "Enable In/Decrement"}
         </button>
       </header>
     </div>
