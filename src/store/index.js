@@ -1,13 +1,7 @@
 import { useReducer } from "react";
 
-const initialState = {
-  counter: 0,
-  n: 0,
-  allowed: true
-};
-
 export function CreateStore(reducer) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, reducer(undefined, ""));
   function getState() {
     return { ...state };
   }
